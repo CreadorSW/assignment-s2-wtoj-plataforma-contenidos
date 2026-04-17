@@ -1,0 +1,24 @@
+import contenido.*
+
+describe "Tests Serie Recuerdos"{
+
+    RecuerdosEpisodio1 = new Episodio(titulo = "Primer dia", costoBase= 10,
+numero = 1)
+    RecuerdosEpisodio2 = new Episodio(titulo = "La vida es dura", costoBase =
+15, numero=2)
+
+    RecuerdosTemporada1 = new Temporada(titulo = "Temporada 1", costoBase = 0,
+numero = 1)
+
+    RecuerdosTemporada1.agredarEpisodio(RecuerdosEpisodio1)
+    RecuerdosTemporada1.agredarEpisodio(RecuerdosEpisodio2)
+
+    SerieRecuerdos = new Serie(titulo = "Recuerdos", costoBase = 20)
+
+    test "La serie Recuerdos con un costo base de 20 y 1 temporada de 2
+episodios de 10 y 15 de costo respectivamente, tiene un costo de 45/2"
+
+    assert.equals(45/2, SerieRecuerdos.costo())
+
+
+}

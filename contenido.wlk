@@ -22,7 +22,7 @@ class Serie inherits Contenido {
   }
 
   override method costo(){
-    self.costoBase + temporadas.sum{t => t.costo()}/length()
+    return self.costoBase + temporadas.sum{t => t.costo()}/length()
 
   }
 
@@ -41,10 +41,18 @@ class Temporada inherits Contenido {
     return episodios.lenght()
   }
 
+  override method costo(){
+    return episodios.sum{e => e.costo()}
+  }
+
 
 }
 
 class Episodio inherits Contenido {
   const numero
-  //
+
+  override method costo(){
+    return self.costoBase
+  }
+
 }
