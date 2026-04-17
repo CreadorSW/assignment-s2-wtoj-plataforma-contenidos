@@ -3,8 +3,6 @@
     - Para llamar un método de sí mismo, usar `self.`
     - Una clase es abstracta si contiene al menos un método no definido.
 
-
-
 */
 
 
