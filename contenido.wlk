@@ -1,14 +1,15 @@
+// Queremos que sea una clase abstracta
 class Contenido{
   const titulo
   var costoBase
 
-  method costoBase
+  method costo
 
 }
 
 
 class Pelicula inherits Contenido {
-  const titulo
+  // Vacía - hereda todo de Contenido
 
 
 }
@@ -16,12 +17,19 @@ class Pelicula inherits Contenido {
 class Serie inherits Contenido {
   const temporadas = []
 
+  method agregarTemporada(unaTemporada){
+    temporadas.add(unaTemporada)
+  }
 
+  override method costo(){
+    self.costoBase + temporadas.sum{t => t.costo()}/length()
+
+  }
 
 
 }
 
-class Temporada {
+class Temporada inherits Contenido {
   const episodios = []
   const numero
 
@@ -33,9 +41,10 @@ class Temporada {
     return episodios.lenght()
   }
 
+
 }
 
-class Episodio {
+class Episodio inherits Contenido {
   const numero
-  const titulo
+  //
 }
