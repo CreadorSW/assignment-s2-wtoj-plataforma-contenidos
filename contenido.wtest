@@ -64,10 +64,12 @@ describe "Tests documental Gobstones"{
 
 describe "Test de usuarios" {
 
-    // Usuario
+    // Planes y usuarios
     const planBasico1 = new PlanBasico (costoFijo =5, cantidadDeContenidoBonificado = 5)
+    const planBasico2 = new PlanBasico(costoFijo = 10, cantidadDeContenidoBonificado = 15)
 
     const juan = new Usuario(nombre = "Juan", plan = planBasico1)
+    const pedro = new Usuario(nombre = "Pedro", plan = planBasico2)
 
 
     // Pelis
@@ -92,20 +94,32 @@ describe "Test de usuarios" {
     const docuJava = new Documental(titulo = "Gobstones", costoBase = 30)
     const docuTerminal = new Documental(titulo = "Gobstones", costoBase = 20)
 
+    // Hacemos que Juan y Pedro miren los documentales
     method initialize(){
-        juan.verContenido(docuGobstones)
-        juan.verContenido(docuWollok)
-        juan.verContenido(docuJava)
-        juan.verContenido(docuTerminal)
+        const usuarios = [juan, pedro]
+        usuarios.forEach{u => u.verContenido(docuGobstones)}
+        usuarios.forEach{u => u.verContenido(docuWollok)}
+        usuarios.forEach{u => u.verContenido(docuJava)}
+        usuarios.forEach{u => u.verContenido(docuTerminal)}
 
     }
 
-    test "Juan con un Plan Básico de costo fijo 5 y 5 contenidos se ve todos los documentales y luego ve Aprendiendo a vivir 1 y 2. Se excede en una película y paga un total de 10 usd"{
+    test "Juan con un Plan Básico de costo fijo 5 y 5 contenidos se ve todos los documentales y luego ve Aprendiendo a vivir 1 y 2 y la serie Recuerdos. Se excede en 2 contenidos 30 usd"{
 
         juan.verContenido(pelicula1)
         juan.verContenido(pelicula2)
+        juan.verContenido(serieRecuerdos)
 
-        assert.equals(10, juan.plan().costo() )
+        assert.equals(30, juan.plan().costo() )
+    }
+
+    test "Pedro con un Plan Básico de costo fijo 10 y 15 contenidos ve el mismo contendio que Juan y paga 10"{
+
+        pedro.verContenido(pelicula1)
+        pedro.verContenido(pelicula2)
+        pedro.verContenido(serieRecuerdos)
+
+        assert.equals(10, pedro.plan().costo() )
     }
 
 }
