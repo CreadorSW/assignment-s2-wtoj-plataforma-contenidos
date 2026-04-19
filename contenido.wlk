@@ -9,7 +9,7 @@
 // Queremos que sea una clase abstracta
 class Contenido{
   const titulo
-  var costoBase
+  var property costoBase
 
   method costo()
 
@@ -18,7 +18,9 @@ class Contenido{
 
 class Pelicula inherits Contenido {
   // Vacía - hereda todo de Contenido
-
+  method costo(){
+    //Tenemos que dejar el método vacío para que no sea abstracta
+  }
 
 }
 
@@ -67,5 +69,14 @@ class Episodio inherits Contenido {
   override method costo(){
     return costoBase
   }
+
+}
+
+class Documental inherits Contenido{
+  var property cannonIDRA = 0.5
+  override method costo(){
+    return costoBase + costoBase*cannonIDRA
+  }
+
 
 }

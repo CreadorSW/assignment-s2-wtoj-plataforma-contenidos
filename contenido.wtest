@@ -10,6 +10,7 @@
 */
 
 import contenido.*
+import planes.*
 
 describe "Tests Serie Recuerdos" {
 
@@ -23,7 +24,9 @@ describe "Tests Serie Recuerdos" {
 
 
 
+
     const serieRecuerdos = new Serie(titulo = "Recuerdos", costoBase = 20)
+
 
     test "La serie Recuerdos con un costo base de 20 y 1 temporada de 2
     episodios de 10 y 15 de costo respectivamente, tiene un costo de 20 +
@@ -35,4 +38,75 @@ describe "Tests Serie Recuerdos" {
         assert.equals(20+25/2, serieRecuerdos.costo())
     }
 
+
 }
+
+describe "Tests documental Gobstones"{
+
+
+    const docuGobstones = new Documental(titulo = "Gobstones", costoBase = 20)
+
+
+    test "El documental Gobstones con costo base de 20 y cannon IDRA de 50%, tiene un costo de 30"{
+
+
+
+        assert.equals(30, docuGobstones.costo())
+
+    }
+
+    test "IDRA cambia su cannon a 0.4 y ahora el documental Gobstones cuesta 28"{
+
+        docuGobstones.cannonIDRA(0.4)
+        assert.equals(28, docuGobstones.costo())
+    }
+}
+
+describe "Test de usuarios" {
+
+    // Usuario
+    const planBasico1 = new PlanBasico (costoFijo =5, cantidadDeContenidoBonificado = 5)
+
+    const juan = new Usuario(nombre = "Juan", plan = planBasico1)
+
+
+    // Pelis
+    const pelicula1 = new Pelicula(titulo = "Aprendiendo a vivir", costoBase = 5)
+    const pelicula2 = new Pelicula(titulo = "Aprendiendo a vivir 2", costoBase = 5)
+
+
+    // Serie
+    const recuerdosEpisodio1 = new Episodio(titulo = "Primer dia", costoBase=
+    10, numero = 1)
+    const recuerdosEpisodio2 = new Episodio(titulo = "La vida es dura",
+    costoBase = 15, numero=2)
+
+    const recuerdosTemporada1 = new Temporada(titulo = "Temporada 1", costoBase
+    = 0, numero = 1)
+    const serieRecuerdos = new Serie(titulo = "Recuerdos", costoBase = 20)
+
+    // Documental
+
+    const docuGobstones = new Documental(titulo = "Gobstones", costoBase = 20)
+    const docuWollok = new Documental(titulo = "Gobstones", costoBase = 25)
+    const docuJava = new Documental(titulo = "Gobstones", costoBase = 30)
+    const docuTerminal = new Documental(titulo = "Gobstones", costoBase = 20)
+
+    method initialize(){
+        juan.verContenido(docuGobstones)
+        juan.verContenido(docuWollok)
+        juan.verContenido(docuJava)
+        juan.verContenido(docuTerminal)
+
+    }
+
+    test "Juan con un Plan Básico de costo fijo 5 y 5 contenidos se ve todos los documentales y luego ve Aprendiendo a vivir 1 y 2. Se excede en una película y paga un total de 10 usd"{
+
+        juan.verContenido(pelicula1)
+        juan.verContenido(pelicula2)
+
+        assert.equals(10, juan.plan().costo() )
+    }
+
+}
+
