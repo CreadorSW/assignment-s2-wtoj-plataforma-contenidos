@@ -106,6 +106,16 @@ describe "Test de usuarios" {
 
     test "Juan con un Plan Básico de costo fijo 5 y 5 contenidos se ve todos los documentales y luego ve Aprendiendo a vivir 1 y 2 y la serie Recuerdos. Se excede en 2 contenidos 30 usd"{
 
+        /*
+        Observación increíble. Había olvidado agregar los episodios y no me dió error con assert.equals(30, juan.plan().costo() ). Debería haber saltado un error (que en Java salta) en la parte en la que calcula el costo de la Serie que es
+            costoBase + temporadas.sum({t=> t.costo()})/self.cantidadEpisodiosTotales()
+
+        aparentemente si la temporada está vacía, el numerador da cero (y el denominador también) y el costo queda igual al costo base. Pero en Java queda un 0/0 y devuelve NaN.
+        */
+        recuerdosTemporada1.agregarEpisodio(recuerdosEpisodio1)
+        recuerdosTemporada1.agregarEpisodio(recuerdosEpisodio2)
+        serieRecuerdos.agregarTemporada(recuerdosTemporada1)
+
         juan.verContenido(pelicula1)
         juan.verContenido(pelicula2)
         juan.verContenido(serieRecuerdos)
@@ -114,6 +124,11 @@ describe "Test de usuarios" {
     }
 
     test "Pedro con un Plan Básico de costo fijo 10 y 15 contenidos ve el mismo contendio que Juan y paga 10"{
+
+
+        recuerdosTemporada1.agregarEpisodio(recuerdosEpisodio1)
+        recuerdosTemporada1.agregarEpisodio(recuerdosEpisodio2)
+        serieRecuerdos.agregarTemporada(recuerdosTemporada1)
 
         pedro.verContenido(pelicula1)
         pedro.verContenido(pelicula2)
